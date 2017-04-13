@@ -1,0 +1,28 @@
+<template>
+    <h1>JB's Movie List</h1>
+
+    <p>This component demonstrates fetching data from the server.</p>
+
+    <p if.bind="!movies"><em>Loading...</em></p>
+
+    <table id="movies-list" if.bind="movies" class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Year</th>
+                <th>Description</th>
+                <th>Runtime</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="movie of movies">
+                <td>${ movie.title }</td>
+                <td>${ movie.year }</td>
+                <td>${ movie.description }</td>
+                <td>${ movie.runtime }</td>
+                <td>${ movie.rating }</td>
+            </tr>
+        </tbody>
+    </table>
+</template>

@@ -14,25 +14,23 @@ namespace TestApi
     public class Startup
     {
         private readonly Container _container = new Container();
+        public IConfigurationRoot Configuration { get; }
 
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
-
-        public IConfigurationRoot Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowClientHost", policy =>
-                    policy.WithOrigins("http://localhost:5050")
+                    policy.WithOrigins("http://localhost:5050", "http://localhost:60000")
                         .AllowAnyMethod()
                         .AllowAnyHeader());
             });

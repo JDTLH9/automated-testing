@@ -9,3 +9,9 @@ RESTful API in .NET Core 1.1.1 (VS2017 .csproj project type) with Acceptance Tes
 
 * Install [NodeJS](https://git-scm.com/download/win)
 * cd to src\TestApi.Client directory and run the command "npm install" 
+
+For Browser tests it is advised to self-host as a Windows Service using the following 2 commands (Admin Command Prompt):
+
+*Test Client*: `sc create [service name] binPath= "[path to executable]\TestApi.Client.exe"`
+
+*Test API*: `sc create [service name] binPath= "[path to executable]\TestApi.exe"`

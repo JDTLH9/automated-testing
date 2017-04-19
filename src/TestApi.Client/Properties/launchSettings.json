@@ -1,13 +1,4 @@
 {
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:52314/",
-      "sslPort": 0
-    }
-  },
-  "profiles": {
     "TestapiClient": {
       "commandName": "Project",
       "environmentVariables": {

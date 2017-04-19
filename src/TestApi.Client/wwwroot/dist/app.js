@@ -1062,7 +1062,7 @@ var aurelia_framework_1 = __webpack_require__(6);
 var Fetchdata = (function () {
     function Fetchdata(http) {
         var _this = this;
-        http.fetch('http://localhost:5000/api/movie')
+        http.fetch('http://localhost:55000/api/movie')
             .then(function (result) { return result.json(); })
             .then(function (data) {
             _this.movies = data;

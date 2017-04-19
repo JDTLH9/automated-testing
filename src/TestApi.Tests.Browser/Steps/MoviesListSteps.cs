@@ -29,7 +29,7 @@ namespace TestApi.Tests.Browser.Steps
         [Given(@"my Movies website")]
         public void GivenMyMoviesWebsite()
         {
-            _webDriver.Navigate().GoToUrl("http://localhost:5050/");
+            _webDriver.Navigate().GoToUrl("http://localhost:60000/");
         }
         
         [When(@"I navigate to the fetch data page")]

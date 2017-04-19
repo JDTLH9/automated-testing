@@ -6,7 +6,7 @@ export class Fetchdata {
     public movies: IMovie[];
 
     constructor(http: HttpClient) {
-        http.fetch('http://localhost:5000/api/movie')
+        http.fetch('http://localhost:55000/api/movie')
             .then(result => result.json() as Promise<IMovie[]>)
             .then(data => {
                 this.movies = data;

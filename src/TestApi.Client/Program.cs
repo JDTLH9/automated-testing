@@ -1,5 +1,9 @@
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.WindowsServices;
+using Microsoft.Extensions.Configuration;
 
 namespace TestApi.Client
 {
@@ -7,14 +11,38 @@ namespace TestApi.Client
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseStartup<Startup>()
-                .UseUrls("http://localhost:5050/")
+            var isDebug = Debugger.IsAttached || ((IList<string>)args).Contains("--debug");
+            string contentRootPath;
+
+            if (isDebug)
+                contentRootPath = Directory.GetCurrentDirectory();
+            else
+            {
+                var exePath = Process.GetCurrentProcess().MainModule.FileName;
+                contentRootPath = Path.GetDirectoryName(exePath);
+            }
+
+            var config = new ConfigurationBuilder()
+                .SetBasePath(contentRootPath)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddEnvironmentVariables()
                 .Build();
 
-            host.Run();
+            var host = new WebHostBuilder()
+                .UseKestrel()
+                .UseConfiguration(config)
+                .UseContentRoot(contentRootPath)
+                .UseStartup<Startup>()
+                .Build();
+
+            if (isDebug)
+            {
+                host.Run();
+            }
+            else
+            {
+                host.RunAsService();
+            }
         }
     }
 }

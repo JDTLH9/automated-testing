@@ -4,9 +4,8 @@ using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore;
-using System.Linq;
 using TestApi.Clients.Database;
-using TestApi.Controllers;
+using TestApi.Handlers;
 
 namespace TestApi.Registry
 {
@@ -21,8 +20,6 @@ namespace TestApi.Registry
             
             CustomRegistrations(container, databaseName);
 
-            ScanAssembly(container);
-
             container.Verify();
         }
 
@@ -30,22 +27,10 @@ namespace TestApi.Registry
         {
             var collection = GetMoviesCollection(databaseName);
             container.Register<IDatabaseClient<Movie>>(() => new DatabaseClient<Movie>(collection), Lifestyle.Singleton);
-        }
-
-        private static void ScanAssembly(Container container)
-        {
-            var assembly = typeof(MovieController).Assembly;
-
-            var registrations =
-                assembly.GetExportedTypes()
-                    .Where(type => type.Namespace == "TestApi.Handlers")
-                    .Where(type => type.GetInterfaces().Any())
-                    .Select(type => new { Service = type.GetInterfaces().First(), Implementation = type });
-
-            foreach (var reg in registrations)
-            {
-                container.Register(reg.Service, reg.Implementation, Lifestyle.Scoped);
-            }
+            container.Register<IHandlerMovieDelete, HandlerMovieDelete>(Lifestyle.Singleton);
+            container.Register<IHandlerMovieGet, HandlerMovieGet>(Lifestyle.Singleton);
+            container.Register<IHandlerMoviePost, HandlerMoviePost>(Lifestyle.Singleton);
+            container.Register<IHandlerMoviePut, HandlerMoviePut>(Lifestyle.Singleton);
         }
 
         private static IMongoCollection<Movie> GetMoviesCollection(string databaseName)

@@ -42,7 +42,7 @@ namespace TestApi.Tests.Unit.Handlers
         [Test]
         public void ThenTheMethodToGetASingleMovieIsCalledOnTheClient()
         {
-            _mockClient.Verify(m => m.GetItem(_getMovie.Id));
+            _mockClient.Verify(m => m.GetItem(_getMovie.Id), Times.Exactly(1));
         }
     }
 }

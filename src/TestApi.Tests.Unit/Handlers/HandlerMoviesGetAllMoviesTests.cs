@@ -39,7 +39,7 @@ namespace TestApi.Tests.Unit.Handlers
         [Test]
         public void ThenTheMethodToGetAllMoviesIsCalledOnTheClient()
         {
-            _mockClient.Verify(m => m.GetItems());
+            _mockClient.Verify(m => m.GetItems(), Times.Exactly(1));
         }
     }
 }

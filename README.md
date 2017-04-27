@@ -2,6 +2,7 @@
 RESTful API in .NET Core 1.1.1 (VS2017 .csproj project type) with Acceptance Test Project
 
 ## Install Instructions
+* Install [.NET Core CLI](https://www.microsoft.com/net/download/core) OR [Visual Studio 2017](https://www.visualstudio.com/downloads/)
 * Install [MongoDB Windows Installer](https://www.mongodb.com/download-center#community)
 * Install the Mongod.exe as a Windows Service using the following command:
 

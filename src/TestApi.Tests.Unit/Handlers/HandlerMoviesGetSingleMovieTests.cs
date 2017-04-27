@@ -14,6 +14,7 @@ namespace TestApi.Tests.Unit.Handlers
     public class HandlerMoviesGetSingleMovieTests
     {
         private const int NumberOfMovies = 3;
+        private const int SelectMiddle = 1;
         private IEnumerable<Movie> _testMovies;
         private Movie _returnMovie;
         private Mock<IDatabaseClient<Movie>> _mockClient;
@@ -24,7 +25,7 @@ namespace TestApi.Tests.Unit.Handlers
         {
             var fixture = new Fixture();
             _testMovies = fixture.CreateMany<Movie>(NumberOfMovies);
-            _getMovie = _testMovies.OrderBy(m => m.Id).First();
+            _getMovie = _testMovies.ToArray()[SelectMiddle];
 
             _mockClient = new Mock<IDatabaseClient<Movie>>();
             _mockClient.Setup(m => m.GetItem(_getMovie.Id)).Returns(() => _getMovie);
@@ -34,15 +35,15 @@ namespace TestApi.Tests.Unit.Handlers
         }
 
         [Test]
-        public void ThenTheCorrectMovieIsReturned()
-        {
-            _returnMovie.ShouldBeEquivalentTo(_getMovie);
-        }
-
-        [Test]
         public void ThenTheMethodToGetASingleMovieIsCalledOnTheClient()
         {
             _mockClient.Verify(m => m.GetItem(_getMovie.Id), Times.Exactly(1));
+        }
+
+        [Test]
+        public void ThenTheCorrectMovieIsReturned()
+        {
+            _returnMovie.ShouldBeEquivalentTo(_getMovie);
         }
     }
 }

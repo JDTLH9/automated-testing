@@ -14,7 +14,10 @@ namespace TestApi.Controllers
         private readonly IHandlerMoviePut _handlerMoviesPut;
         private readonly IHandlerMovieDelete _handlerMovieDelete;
 
-        public MovieController(IHandlerMovieGet handlerMovieGet, IHandlerMoviePost handlerMoviesPost, IHandlerMoviePut handlerMoviesPut, IHandlerMovieDelete handlerMovieDelete)
+        public MovieController(IHandlerMovieGet handlerMovieGet, 
+                               IHandlerMoviePost handlerMoviesPost, 
+                               IHandlerMoviePut handlerMoviesPut, 
+                               IHandlerMovieDelete handlerMovieDelete)
         {
             _handlerMovieGet = handlerMovieGet;
             _handlerMoviesPost = handlerMoviesPost;
